@@ -1,16 +1,15 @@
 {
   "files": {
-    "main.css": "/CADProj/static/css/main.073c9b0a.css",
-    "main.js": "/CADProj/static/js/main.30b1b042.js",
-    "static/js/787.3579dbf4.chunk.js": "/CADProj/static/js/787.3579dbf4.chunk.js",
-    "static/media/logo.svg": "/CADProj/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "main.css": "/CADProj/static/css/main.79bc930f.css",
+    "main.js": "/CADProj/static/js/main.7613ff13.js",
+    "static/media/heart.png": "/CADProj/static/media/heart.73f3a6a74ea8763f666b.png",
+    "static/media/logo.png": "/CADProj/static/media/logo.e20c51aad142de0f5772.png",
     "index.html": "/CADProj/index.html",
-    "main.073c9b0a.css.map": "/CADProj/static/css/main.073c9b0a.css.map",
-    "main.30b1b042.js.map": "/CADProj/static/js/main.30b1b042.js.map",
-    "787.3579dbf4.chunk.js.map": "/CADProj/static/js/787.3579dbf4.chunk.js.map"
+    "main.79bc930f.css.map": "/CADProj/static/css/main.79bc930f.css.map",
+    "main.7613ff13.js.map": "/CADProj/static/js/main.7613ff13.js.map"
   },
   "entrypoints": [
-    "static/css/main.073c9b0a.css",
-    "static/js/main.30b1b042.js"
+    "static/css/main.79bc930f.css",
+    "static/js/main.7613ff13.js"
   ]
 }
