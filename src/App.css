@@ -54,10 +54,13 @@ p {
       font-weight: 600;
     }
   
-  .container-about p {
-    font-size: calc(10px + 1.2vw);
-    font-weight: normal;
-  }
+  .container-about{
+    margin-bottom: 8vw;
+  }  
+    .container-about p {
+      font-size: calc(10px + 1.2vw);
+      font-weight: normal;
+    }
 
   .container-vert {
     flex-direction: column;
@@ -73,10 +76,19 @@ p {
 }
 
 @media only screen and (max-width: 900px) {
-  .container-1 {
-    flex-wrap: wrap;
+  .container-hero, .container-about{
+    flex-direction: column;
+    margin-top: 5vw;
+    margin-right: 0;
   }
-  .heart-img {
-    width: 40vw;
+
+  .container-about {
+    margin-top: 10vw;
+  }
+
+
+  .heart-img, .girl-img {
+    align-self: flex-end;
+    height: 70vw;
   }
 }
