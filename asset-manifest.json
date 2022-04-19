@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/CADProj/static/css/main.0fe11b41.css",
-    "main.js": "/CADProj/static/js/main.b930fa9e.js",
+    "main.css": "/CADProj/static/css/main.6cfdde21.css",
+    "main.js": "/CADProj/static/js/main.6bca015a.js",
     "static/media/heart.png": "/CADProj/static/media/heart.73f3a6a74ea8763f666b.png",
     "static/media/girl.png": "/CADProj/static/media/girl.fba1a8c4bb6e6e72c732.png",
     "static/media/logo.png": "/CADProj/static/media/logo.e20c51aad142de0f5772.png",
     "index.html": "/CADProj/index.html",
-    "main.0fe11b41.css.map": "/CADProj/static/css/main.0fe11b41.css.map",
-    "main.b930fa9e.js.map": "/CADProj/static/js/main.b930fa9e.js.map"
+    "main.6cfdde21.css.map": "/CADProj/static/css/main.6cfdde21.css.map",
+    "main.6bca015a.js.map": "/CADProj/static/js/main.6bca015a.js.map"
   },
   "entrypoints": [
-    "static/css/main.0fe11b41.css",
-    "static/js/main.b930fa9e.js"
+    "static/css/main.6cfdde21.css",
+    "static/js/main.6bca015a.js"
   ]
 }
