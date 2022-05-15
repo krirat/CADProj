@@ -2,9 +2,11 @@ import React from 'react';
 import logo from './pics/logo.png';
 import heart from './pics/heart.png';
 import girl from './pics/girl.png';
-import './App.css';
-import Button from '@mui/material/Button';
+import Button from './Button.js';
+import Complications from './Complications.js';
+import Contact from './Contact.js'
 
+import './App.css';
 
 function App() {
   return (
@@ -21,7 +23,7 @@ function App() {
       </section>
       <section className='about-cad'>
         <div className='container container-about'>
-          <div className='container container-vert add-right-margin'>
+          <div className='container container-vert'>
             <h1>What is CAD?</h1>
             <p>
               Coronary Heart Disease is the most common form of heart disease
@@ -30,11 +32,13 @@ function App() {
               most of the time. The good news is you can lower your risk of getting
               one by making lifestyle changes.
             </p>
-            <Button variant="contained" size="large">TAKE A TEST</Button>
+            <Button type='small' text='TAKE THE TEST'/>
           </div>
           <img className='girl-img' src={girl} alt='girl'/>
         </div>
       </section>
+      <Complications/>
+      <Contact/>
     </>
   );
 }

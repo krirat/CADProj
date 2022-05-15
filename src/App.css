@@ -1,16 +1,22 @@
 :root {
   --theme-black: #132540;
+  --theme-white: #f6f6f6;
+  --theme-orange: #dd7f1e;
+  --theme-green: #48695c;
 }
 
 body {
   margin:0;
+  background-color: var(--theme-white);
 }
 
 h1,
 h2,
 h3,
-p {
-  margin-top: 0;
+p,
+ol,
+li {
+  margin: 0;
   font-family:'Montserrat', sans-serif;
 }
 
@@ -18,14 +24,22 @@ p {
   font-weight: 600;
 }
 
+.highlight-orange {
+  font-weight: 400 !important;
+  color: var(--theme-orange);
+}
+
+img {
+  height: clamp(100px, 30vw, 725px);
+}
+
 .logo {
+  align-self: flex-start;
   height: clamp(25px, 5vw, 75px);
-  margin-top: 3vw;
-  margin-bottom: 3.5vw;
 }
 
 .heart-img {
-  height: clamp(100px, 47vw, 725px);
+  height: clamp(100px, 50vw, 725px);
   align-self: flex-start;
   border-top-left-radius: 70%;
 }
@@ -34,16 +48,18 @@ p {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: auto;
+  height: 50vw;
   font-size: calc(10px + 2vw);
-  color: --theme-black;
-  margin: 0 8vw 0 8vw;
+  color: var(--theme-black);
+  margin: 0 8vw;
 }
+  .container p {
+    font-size: calc(10px + 1.2vw);
+    font-weight: normal;
+  }
   .container-hero {
-    justify-content: flex-end;
-    align-items: center;
     margin-right: 0;
-    margin-bottom: 10vw;
+    margin-top: 0;
   }
     .container-hero h1 {
       font-size: calc(20px + 4vw);
@@ -54,21 +70,34 @@ p {
       font-weight: 600;
     }
   
-  .container-about{
-    margin-bottom: 8vw;
-  }  
-    .container-about p {
-      font-size: calc(10px + 1.2vw);
-      font-weight: normal;
+  .container-about {
+    height: 45vw;
+  } 
+    .container-about .container-vert {
+      height: 30vw;
     }
+
+  .container-complications {
+    height: 40vw;
+  }
+  .container-complications .container-vert {
+    height: 20vw;
+  }
+  .container-complications li {
+    font-size: calc(2px + 1.7vw);
+    line-height: calc(2px + 2.2vw);
+  }
 
   .container-vert {
     flex-direction: column;
     align-items: flex-start;
-    margin-left:0;
+    justify-content: space-between;
+    margin: 0;
+    height: 75%;
   }
     .container-vert-hero {
-      padding-right: 20vw;
+      margin: -2vw 0 0 0; /*offset upwards to look more balanced*/
+      width: 15em;
     }
 
 .add-right-margin {
@@ -76,19 +105,29 @@ p {
 }
 
 @media only screen and (max-width: 900px) {
-  .container-hero, .container-about{
+  .container {
     flex-direction: column;
     margin-top: 5vw;
     margin-right: 0;
+  }
+
+  .container-complications {
+    flex-direction: column-reverse;
   }
 
   .container-about {
     margin-top: 10vw;
   }
 
-
-  .heart-img, .girl-img {
+  img {
     align-self: flex-end;
     height: 70vw;
+  }
+
+  .logo {
+    align-self: flex-start;
+    height: clamp(25px, 5vw, 75px);
+    margin-top: 3vw;
+    margin-bottom: 3.5vw;
   }
 }
