@@ -14,7 +14,10 @@ function App() {
       <section className='hero'>
         <div className='container container-hero'>
               <div className='container container-vert container-vert-hero'>
-                <img className='logo' src={logo} alt='logo'/>
+                <div>
+                  <circle height='20px'></circle>
+                  <img className='logo' src={logo} alt='logo'/>
+                </div>
                 <h1>Coronary Artery Disease</h1>
                 <p>Analyze your risk of getting a heart disease now!</p>
               </div>

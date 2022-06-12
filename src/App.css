@@ -6,7 +6,7 @@
 }
 
 body {
-  margin:0;
+  margin: 0;
   background-color: var(--theme-white);
 }
 
@@ -41,8 +41,13 @@ img {
 .heart-img {
   height: clamp(100px, 50vw, 725px);
   align-self: flex-start;
-  border-top-left-radius: 70%;
+  /* mask-image: url('./pics/shardmask.svg');
+  mask-repeat: no-repeat;
+  mask-size: 100%; */
 }
+/* .arm-img {
+   border-top-left-radius: 70%; 
+} */
 
 .container {
   display: flex;
@@ -54,7 +59,7 @@ img {
   margin: 0 8vw;
 }
   .container p {
-    font-size: calc(10px + 1.2vw);
+    font-size: calc(5px + 1vw);
     font-weight: normal;
   }
   .container-hero {
@@ -80,13 +85,13 @@ img {
   .container-complications {
     height: 40vw;
   }
-  .container-complications .container-vert {
-    height: 20vw;
-  }
-  .container-complications li {
-    font-size: calc(2px + 1.7vw);
-    line-height: calc(2px + 2.2vw);
-  }
+    .container-complications .container-vert {
+      height: 20vw;
+    }
+    .container-complications li {
+      font-size: calc(2px + 1.7vw);
+      line-height: calc(2px + 2.2vw);
+    }
 
   .container-vert {
     flex-direction: column;
@@ -103,12 +108,14 @@ img {
 .add-right-margin {
   margin-right: 10vw;
 }
-
+/* 
 @media only screen and (max-width: 900px) {
   .container {
     flex-direction: column;
     margin-top: 5vw;
     margin-right: 0;
+    height: auto;
+    align-items: flex-start;
   }
 
   .container-complications {
@@ -121,7 +128,11 @@ img {
 
   img {
     align-self: flex-end;
-    height: 70vw;
+
+  }
+
+  .heart-img {
+    align-self: flex-end;
   }
 
   .logo {
@@ -130,4 +141,4 @@ img {
     margin-top: 3vw;
     margin-bottom: 3.5vw;
   }
-}
+} */
