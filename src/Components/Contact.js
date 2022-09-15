@@ -1,6 +1,6 @@
 import React from 'react';
-import './App.css';
-import arm from './pics/arm.png';
+import '../App.css';
+import arm from '../pics/arm.png';
 
 function Contact() {
     return (

@@ -1,6 +1,6 @@
 import React from 'react';
-import rbc from './pics/RBC.png';
-import './App.css';
+import rbc from '../pics/RBC.png';
+import '../App.css';
 
 function Complications() {
     return (

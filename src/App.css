@@ -5,6 +5,10 @@
   --theme-green: #48695c;
 }
 
+html {
+  font-size: 22px;
+}
+
 body {
   margin: 0;
   background-color: var(--theme-white);
@@ -16,7 +20,7 @@ h3,
 p,
 ol,
 li {
-  margin: 0;
+  /* margin: 0; */
   font-family:'Montserrat', sans-serif;
 }
 
@@ -35,11 +39,12 @@ img {
 
 .logo {
   align-self: flex-start;
-  height: clamp(25px, 5vw, 75px);
+  height: 2rem;
 }
 
 .heart-img {
-  height: clamp(100px, 50vw, 725px);
+  height: 100%;
+  object-fit: contain;
   align-self: flex-start;
   /* mask-image: url('./pics/shardmask.svg');
   mask-repeat: no-repeat;
@@ -53,13 +58,13 @@ img {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 50vw;
-  font-size: calc(10px + 2vw);
+  /* height: 50vw; */
+  font-size: 1rem;
   color: var(--theme-black);
-  margin: 0 8vw;
+  margin: 0;
 }
   .container p {
-    font-size: calc(5px + 1vw);
+    font-size: 1rem;
     font-weight: normal;
   }
   .container-hero {
@@ -67,15 +72,19 @@ img {
     margin-top: 0;
   }
     .container-hero h1 {
-      font-size: calc(20px + 4vw);
+      font-size: 3rem;
       line-height: 100%;
+      word-spacing: 20000px;
     }
     .container-hero p {
-      font-size: calc(1px + 2vw);
+      font-size: 0.7rem;
       font-weight: 600;
     }
-  
-  .container-about {
+    .container-hero .container-vert {
+      margin: 1rem;
+    } 
+
+  /* .container-about {
     height: 45vw;
   } 
     .container-about .container-vert {
@@ -84,13 +93,10 @@ img {
 
   .container-complications {
     height: 40vw;
-  }
-    .container-complications .container-vert {
-      height: 20vw;
-    }
+  } */
     .container-complications li {
-      font-size: calc(2px + 1.7vw);
-      line-height: calc(2px + 2.2vw);
+      font-size: 1rem;
+      line-height: 1rem;
     }
 
   .container-vert {
@@ -98,47 +104,54 @@ img {
     align-items: flex-start;
     justify-content: space-between;
     margin: 0;
-    height: 75%;
+    /* height: 75%; */
   }
-    .container-vert-hero {
-      margin: -2vw 0 0 0; /*offset upwards to look more balanced*/
-      width: 15em;
-    }
+      
 
 .add-right-margin {
-  margin-right: 10vw;
+  margin-right: 5rem;
 }
-/* 
-@media only screen and (max-width: 900px) {
-  .container {
-    flex-direction: column;
-    margin-top: 5vw;
-    margin-right: 0;
-    height: auto;
-    align-items: flex-start;
-  }
 
-  .container-complications {
-    flex-direction: column-reverse;
-  }
-
-  .container-about {
-    margin-top: 10vw;
-  }
-
+@media only screen and (max-width: 700px) {
   img {
-    align-self: flex-end;
-
-  }
-
-  .heart-img {
-    align-self: flex-end;
+    display: none;
   }
 
   .logo {
-    align-self: flex-start;
-    height: clamp(25px, 5vw, 75px);
-    margin-top: 3vw;
-    margin-bottom: 3.5vw;
+    display: block;
   }
-} */
+
+  .container-vert { 
+    margin: 1.1rem 0.5rem;
+  }
+
+
+} 
+
+@media (min-width: 700px) and (max-width: 1000px) {
+  html {
+    font-size: 35px;
+  }
+  img {
+    display: none;
+  }
+
+  .logo {
+    display: block;
+  }
+  .container-vert { 
+    margin: 1.3rem 0.5rem;
+  }
+}
+
+@media (min-width: 1000px) {
+  html {
+    font-size: 35px;
+  }
+
+  .container { 
+    margin: 1rem 2rem;
+  }
+}
+
+
