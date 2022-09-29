@@ -11,8 +11,8 @@ const Button = styled(MUIButton)(() => ({
     color: '#F6F6F6',
     backgroundColor: '#48695C',
     fontFamily: 'Montserrat',
-    padding: '1rem 3rem',
-    fontSize: 'auto',
+    padding: '0.5rem 1.5rem',
+    fontSize: '0.7rem',
     '&:hover' : {
         backgroundColor: '#3B574C'
     }
