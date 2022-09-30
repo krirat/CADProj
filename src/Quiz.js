@@ -2,13 +2,14 @@ import React from "react";
 import react from "react";
 import Slider from "@mui/material/Slider";
 import Input from "@mui/material/Input";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "./App.css";
 import "./Quiz.css";
 
 const INFORMATION = {
   male: false,
   above60: false,
-  bmi: 10,
+  bmi: 0,
 };
 
 const QUESTIONS = [
@@ -20,7 +21,7 @@ const QUESTIONS = [
     ],
     extraPrompt: (
       <div className="extraPrompt">
-        <p>for</p>
+        <p>For</p>
         <p>
           <strong>6-17 y/o: </strong> at least 60 minutes of moderate to
           vigorous exercise 3 times a week
@@ -95,10 +96,32 @@ function Quiz() {
   const [sectionNumber, setSectionNumber] = react.useState(0);
 
   const [weight, setWeight] = react.useState(0);
+  const [height, setHeight] = react.useState(0);
+  const [BMI, setBMI] = react.useState(0);
 
   let currentQuestion = QUESTIONS[qNum];
   let qPrompt = currentQuestion.prompt;
   let qExtraPrompt = currentQuestion.extraPrompt || null;
+
+  const theme = createTheme({
+    components: {
+      MuiSlider: {
+        styleOverrides: {
+          root: {
+            "& .MuiSlider-colorPrimary": {
+              backgroundColor: "#48695c",
+            },
+            "& .MuiSlider-barColorSecondary": {
+              backgroundColor: "#48695c",
+            },
+            "& .MuiSlider-thumbColorPrimary": {
+              backgroundColor: "#48695c",
+            },
+          },
+        },
+      },
+    },
+  });
 
   //----- HELPER FUNCTIONS --------------------------------
 
@@ -128,11 +151,13 @@ function Quiz() {
   const handleSliderChange = (e) => {
     setWeight(Number(e.target.value));
     setChecked(true);
+    setBMI(weight / ((height / 100) ^ 2));
   };
 
   const handleInputChange = (e) => {
     setWeight(Number(e.target.value));
     setChecked(true);
+    setBMI(weight / ((height / 100) ^ 2));
   };
 
   const handleBlur = (e) => {
@@ -140,6 +165,25 @@ function Quiz() {
       setWeight(0);
     } else if (Number(e.target.value) > 300) {
       setWeight(300);
+    }
+  };
+  const handleHeightSliderChange = (e) => {
+    setHeight(Number(e.target.value));
+    setChecked(true);
+    setBMI(weight / ((height / 100) ^ 2));
+  };
+
+  const handleHeightInputChange = (e) => {
+    setHeight(Number(e.target.value));
+    setChecked(true);
+    setBMI(weight / ((height / 100) ^ 2));
+  };
+
+  const handleHeightBlur = (e) => {
+    if (Number(e.target.value) < 0) {
+      setHeight(0);
+    } else if (Number(e.target.value) > 300) {
+      setHeight(300);
     }
   };
 
@@ -168,14 +212,19 @@ function Quiz() {
   const generateQuestionsMenu = () => {
     let items = [];
     for (var i = 0; i < QUESTIONS.length; i++) {
+      var cls;
+      if (i < qNum) {
+        cls = "questionsMenuButton ready";
+      } else if (i === qNum) {
+        cls = "questionsMenuButton ready chosen";
+      } else if (i > qNum && i <= maxQNum) {
+        cls = "questionsMenuButton ready notChosen";
+      } else {
+        cls = "questionsMenuButton";
+      }
+
       items.push(
-        <button
-          className={
-            i <= maxQNum ? "questionsMenuButton active" : "questionsMenuButton"
-          }
-          value={i}
-          onClick={handleQuestionsMenuClick}
-        />
+        <button className={cls} value={i} onClick={handleQuestionsMenuClick} />
       );
     }
     return items;
@@ -185,39 +234,66 @@ function Quiz() {
 
   const informationSection = (
     <React.Fragment key="iSect">
-      <Slider
-        value={typeof weight === "number" ? weight : 0}
-        onChange={handleSliderChange}
-        aria-labelledby="input-slider"
-      />
-      <Input
-        value={weight}
-        size="small"
-        onChange={handleInputChange}
-        onBlur={handleBlur}
-        inputProps={{
-          step: 10,
-          min: 0,
-          max: 300,
-          type: "number",
-          "aria-labelledby": "input-slider",
-        }}
-      />
+      <div>
+        <p>Height (cm):</p>
+        <ThemeProvider theme={theme}>
+          <Slider
+            value={typeof height === "number" ? height : 0}
+            onChange={handleHeightSliderChange}
+            aria-labelledby="input-slider"
+            className="Slider"
+          />
+        </ThemeProvider>
+        <Input
+          value={height}
+          size="small"
+          onChange={handleHeightInputChange}
+          onBlur={handleHeightBlur}
+          inputProps={{
+            step: 10,
+            min: 0,
+            max: 300,
+            type: "number",
+            "aria-labelledby": "input-slider",
+          }}
+        />
+        <p>Weight (kg):</p>
+        <Slider
+          value={typeof weight === "number" ? weight : 0}
+          onChange={handleSliderChange}
+          aria-labelledby="input-slider"
+          className="Slider"
+        />
+        <Input
+          value={weight}
+          size="small"
+          onChange={handleInputChange}
+          onBlur={handleBlur}
+          inputProps={{
+            step: 10,
+            min: 0,
+            max: 300,
+            type: "number",
+            "aria-labelledby": "input-slider",
+          }}
+        />
+      </div>
+      <p>BMI = {BMI}</p>
     </React.Fragment>
   );
 
   const multipleChoiceSection = (
-    <React.Fragment key="mSect">
+    <div className="multipleChoice">
       <div>
         <p>{qPrompt}</p>
         {qExtraPrompt}
         <div>{generateChoices()}</div>
       </div>
       <footer className="questionsMenu">{generateQuestionsMenu()}</footer>
-    </React.Fragment>
+    </div>
   );
 
-  const resultsSection = <React.Fragment key="rSect"></React.Fragment>;
+  const resultsSection = <React.Fragment key="rSect">yay</React.Fragment>;
 
   const sections = [informationSection, multipleChoiceSection, resultsSection];
 
@@ -231,7 +307,7 @@ function Quiz() {
     <>
       <div className="quizContainer">{sections[sectionNumber]}</div>
       <button
-        className={checked ? "nextQuestion active" : "nextQuestion"}
+        className={checked ? "nextQuestion ready" : "nextQuestion"}
         onClick={handleNext}
       >
         {" "}
