@@ -1,3 +1,4 @@
+import React from "react";
 import react from "react";
 import "./App.css";
 import "./Quiz.css";
@@ -15,6 +16,13 @@ const QUESTIONS = [
       { answer: "Yes", riskPts: 0 },
       { answer: "No", riskPts: 5 },
     ],
+    extraPrompt: (
+      <div className="extraPrompt"> 
+        <p>for</p> 
+        <p><strong>6-17 y/o: </strong> at least 60 minutes of moderate to vigorous exercise 3 times a week</p>
+        <p><strong>18 y/o and above: </strong> at least 150 minutes of moderate exercise 2 times a week</p>
+      </div>
+    )
   },
   {
     prompt: "Do you often feel lightheaded, dizzy, or short of breath?",
@@ -80,13 +88,26 @@ function Quiz() {
 
   let currentQuestion = QUESTIONS[qNum];
   let qPrompt = currentQuestion.prompt;
+  let qExtraPrompt = currentQuestion.extraPrompt || null;
 
   //----- HELPER FUNCTIONS --------------------------------
 
-  const handleChangeChoice = (c) => {
+  const handleChangeChoice = (e) => {
     setChecked(true);
-    setChoiceRisk(Number(c.target.value));
+    setChoiceRisk(Number(e.target.value));
   };
+
+  const handleQuestionsMenuClick = (e) => {
+    let chosenQNum = Number(e.target.value);
+    if (chosenQNum <= maxQNum) setQNum(chosenQNum);
+  }
+
+  const handleNext = () => {
+    if (!checked) return;
+    setQNum(qNum + 1);
+    setRisk(risk + choiceRisk);
+    setChecked(false);
+  }
 
   const generateChoices = () => {
     let choices = [];
@@ -114,18 +135,7 @@ function Quiz() {
     let items = [];
     for (var i = 0; i < QUESTIONS.length; i++) {
       items.push(
-        <>
-          <input
-            key={i}
-            type="radio"
-            id={i}
-            name="questionItems"
-            value={i}
-            defaultChecked={i === 0}
-            onChange={handleChangeChoice}
-          />
-          <label htmlFor={i}> </label>
-        </>
+          <button className={i <= maxQNum ? "questionsMenuButton active" :"questionsMenuButton"} value={i} onClick={handleQuestionsMenuClick}/>
       );
     }
     return items;
@@ -133,28 +143,17 @@ function Quiz() {
 
   //----- SECTIONS ----------------------------------------
 
-  const informationSection = <></>;
+  const informationSection = <React.Fragment key="iSect"></React.Fragment>;
 
   const multipleChoiceSection = (
-    <>
+    <React.Fragment key="mSect">
       <p>{qPrompt}</p>
+      {qExtraPrompt}
       <div>{generateChoices()}</div>
-      <button
-        className="nextQuestion"
-        onClick={() => {
-          if (checked) {
-            setQNum(qNum + 1);
-            setRisk(risk + choiceRisk);
-            setChecked(false);
-          }
-        }}
-      >
-        Next &gt;
-      </button>
-    </>
+    </React.Fragment>
   );
 
-  const resultsSection = <></>;
+  const resultsSection = <React.Fragment key="rSect"></React.Fragment>;
 
   const sections = [informationSection, multipleChoiceSection, resultsSection];
 
@@ -168,6 +167,7 @@ function Quiz() {
     <>
       <div className="quizContainer">{sections[sectionNumber]}</div>
       <footer className="questionsMenu">{generateQuestionsMenu()}</footer>
+      <button className={checked ? "nextQuestion active" : "nextQuestion"} onClick={handleNext}> Next &gt; </button>
     </>
   );
 }
