@@ -1,5 +1,7 @@
 import React from "react";
 import react from "react";
+import Slider from "@mui/material/Slider";
+import Input from "@mui/material/Input";
 import "./App.css";
 import "./Quiz.css";
 
@@ -17,12 +19,18 @@ const QUESTIONS = [
       { answer: "No", riskPts: 5 },
     ],
     extraPrompt: (
-      <div className="extraPrompt"> 
-        <p>for</p> 
-        <p><strong>6-17 y/o: </strong> at least 60 minutes of moderate to vigorous exercise 3 times a week</p>
-        <p><strong>18 y/o and above: </strong> at least 150 minutes of moderate exercise 2 times a week</p>
+      <div className="extraPrompt">
+        <p>for</p>
+        <p>
+          <strong>6-17 y/o: </strong> at least 60 minutes of moderate to
+          vigorous exercise 3 times a week
+        </p>
+        <p>
+          <strong>18 y/o and above: </strong> at least 150 minutes of moderate
+          exercise 2 times a week
+        </p>
       </div>
-    )
+    ),
   },
   {
     prompt: "Do you often feel lightheaded, dizzy, or short of breath?",
@@ -84,7 +92,9 @@ function Quiz() {
   const [risk, setRisk] = react.useState(0);
   const [choiceRisk, setChoiceRisk] = react.useState(0);
   const [checked, setChecked] = react.useState(false);
-  const [sectionNumber, setSectionNumber] = react.useState(1);
+  const [sectionNumber, setSectionNumber] = react.useState(0);
+
+  const [weight, setWeight] = react.useState(0);
 
   let currentQuestion = QUESTIONS[qNum];
   let qPrompt = currentQuestion.prompt;
@@ -100,14 +110,38 @@ function Quiz() {
   const handleQuestionsMenuClick = (e) => {
     let chosenQNum = Number(e.target.value);
     if (chosenQNum <= maxQNum) setQNum(chosenQNum);
-  }
+  };
 
   const handleNext = () => {
     if (!checked) return;
-    setQNum(qNum + 1);
-    setRisk(risk + choiceRisk);
-    setChecked(false);
-  }
+    if (sectionNumber === 0) {
+      setSectionNumber(1);
+      setChecked(false);
+    } else if (sectionNumber === 1) {
+      setQNum(qNum + 1);
+      setRisk(risk + choiceRisk);
+      setChecked(false);
+    } else {
+    }
+  };
+
+  const handleSliderChange = (e) => {
+    setWeight(Number(e.target.value));
+    setChecked(true);
+  };
+
+  const handleInputChange = (e) => {
+    setWeight(Number(e.target.value));
+    setChecked(true);
+  };
+
+  const handleBlur = (e) => {
+    if (Number(e.target.value) < 0) {
+      setWeight(0);
+    } else if (Number(e.target.value) > 300) {
+      setWeight(300);
+    }
+  };
 
   const generateChoices = () => {
     let choices = [];
@@ -135,7 +169,13 @@ function Quiz() {
     let items = [];
     for (var i = 0; i < QUESTIONS.length; i++) {
       items.push(
-          <button className={i <= maxQNum ? "questionsMenuButton active" :"questionsMenuButton"} value={i} onClick={handleQuestionsMenuClick}/>
+        <button
+          className={
+            i <= maxQNum ? "questionsMenuButton active" : "questionsMenuButton"
+          }
+          value={i}
+          onClick={handleQuestionsMenuClick}
+        />
       );
     }
     return items;
@@ -143,13 +183,37 @@ function Quiz() {
 
   //----- SECTIONS ----------------------------------------
 
-  const informationSection = <React.Fragment key="iSect"></React.Fragment>;
+  const informationSection = (
+    <React.Fragment key="iSect">
+      <Slider
+        value={typeof weight === "number" ? weight : 0}
+        onChange={handleSliderChange}
+        aria-labelledby="input-slider"
+      />
+      <Input
+        value={weight}
+        size="small"
+        onChange={handleInputChange}
+        onBlur={handleBlur}
+        inputProps={{
+          step: 10,
+          min: 0,
+          max: 300,
+          type: "number",
+          "aria-labelledby": "input-slider",
+        }}
+      />
+    </React.Fragment>
+  );
 
   const multipleChoiceSection = (
     <React.Fragment key="mSect">
-      <p>{qPrompt}</p>
-      {qExtraPrompt}
-      <div>{generateChoices()}</div>
+      <div>
+        <p>{qPrompt}</p>
+        {qExtraPrompt}
+        <div>{generateChoices()}</div>
+      </div>
+      <footer className="questionsMenu">{generateQuestionsMenu()}</footer>
     </React.Fragment>
   );
 
@@ -166,8 +230,13 @@ function Quiz() {
   return (
     <>
       <div className="quizContainer">{sections[sectionNumber]}</div>
-      <footer className="questionsMenu">{generateQuestionsMenu()}</footer>
-      <button className={checked ? "nextQuestion active" : "nextQuestion"} onClick={handleNext}> Next &gt; </button>
+      <button
+        className={checked ? "nextQuestion active" : "nextQuestion"}
+        onClick={handleNext}
+      >
+        {" "}
+        Next &gt;{" "}
+      </button>
     </>
   );
 }

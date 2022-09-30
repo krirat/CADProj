@@ -1,20 +1,20 @@
 :root {
-    --theme-black: #132540;
-    --theme-white: #f6f6f6;
-    --theme-orange: #dd7f1e;
-    --theme-green: #48695c;
+  --theme-black: #132540;
+  --theme-white: #f6f6f6;
+  --theme-orange: #dd7f1e;
+  --theme-green: #48695c;
 
-    --theme-light-green: #6a9785;
-    --theme-light-gray: #dbdbdb;
+  --theme-light-green: #6a9785;
+  --theme-light-gray: #dbdbdb;
 }
 
 html {
-    font-size: 40px;
+  font-size: 40px;
 }
 
 body {
-    margin: 0;
-    background-color: var(--theme-light-gray);
+  margin: 0;
+  background-color: var(--theme-light-gray);
 }
 
 label,
@@ -34,7 +34,6 @@ button {
   align-items: center;
   text-align: center;
   justify-content: center;
-  height: 100vh;
   max-width: 1000px;
 }
 
@@ -48,7 +47,7 @@ button {
   display: inline-block;
   background-color: var(--theme-white);
   padding: 0.5rem 2.4rem;
-  margin: 0.5rem 2rem; 
+  margin: 0.5rem 2rem;
   font-size: 1rem;
   border: none;
   border-radius: 4px;
@@ -63,47 +62,50 @@ button {
   color: var(--theme-white);
 }
 .quizContainer input[type="radio"]:focus + label {
-    background-color: var(--theme-green);
-    color: var(--theme-white);
-
+  background-color: var(--theme-green);
+  color: var(--theme-white);
 }
 
 .questionsMenu {
-    position: fixed;
-    bottom: 50px;
-    left: 50%;
-    margin-right: -50%;
-    transform: translate(-50%, 0);
+  position: fixed;
+  bottom: 0px;
 }
 
 .questionsMenuButton {
-    padding: 0.4rem 1rem;
-    margin: 0.1rem 0.8rem;
-    border: none;
-    border-radius: 0.4rem;
-    background-color: rgb(163, 163, 163);
-    transform: background-color 0.2s ease-out;
+  padding: 0.4rem 0.7rem;
+  margin: 0.1rem 0.5rem;
+  border: none;
+  border-radius: 0.4rem;
+  background-color: rgb(163, 163, 163);
+  transform: background-color 0.2s ease-out;
 }
 
 .questionsMenuButton:hover {
-    background-color: rgb(111, 111, 111);
-
+  background-color: rgb(111, 111, 111);
 }
 .questionsMenuButton:active {
-    background-color: var(--theme-orange);
+  background-color: var(--theme-orange);
 }
 
 .questionsMenuButton.active {
-    background-color: var(--theme-orange);
+  background-color: var(--theme-orange);
 }
 
+.extraPrompt {
+  background-color: #48695c;
+  border-radius: 1rem;
+  padding: 1rem;
+  font-size: 0.5rem;
+  text-align: left;
+  color: #f6f6f6;
+}
 
 .nextQuestion {
-    position: fixed;
-    bottom: 1rem;
-    right: 1rem;
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
 
-  padding: 0.2rem 0.5rem;
+  padding: 0.3rem 0.5rem;
   background-color: var(--theme-white);
   border: none;
   border-radius: 4rem;
@@ -111,15 +113,31 @@ button {
 }
 
 .nextQuestion.active {
-    background-color: var(--theme-orange);
+  background-color: var(--theme-orange);
 }
 
-
 @media screen and (max-width: 600px) {
-    html {
-        font-size: 22px;
-    }
-    .quizContainer label {
-        padding: 1rem 3rem;
-    }
+  html {
+    font-size: 22px;
+  }
+
+  .quizContainer {
+    padding-bottom: 2rem;
+    flex-direction: column-reverse;
+  }
+  .quizContainer label {
+    padding: 1rem 3rem;
+  }
+  .questionsMenu {
+    position: static;
+    bottom: auto;
+    left: auto;
+    margin: 1rem 0;
+    transform: translate(0, 0);
+  }
+  .questionsMenuButton {
+    padding: 0.8rem 1.4rem;
+    margin: 0.4rem 0.8rem;
+    border-radius: 3rem;
+  }
 }
