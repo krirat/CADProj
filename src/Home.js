@@ -10,7 +10,7 @@ import './App.css';
 
 function Home() {
   return (
-    <>
+    <div className="Home">
       <section className='hero'>
         <div className='container container-hero'>
               <div className='container container-vert container-vert-hero'>
@@ -39,7 +39,7 @@ function Home() {
       </section>
       <Complications/>
       <Contact/>
-    </>
+    </div>
   );
 }
 
