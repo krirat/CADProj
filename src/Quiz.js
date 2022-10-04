@@ -3,7 +3,6 @@ import react from "react";
 import Slider from "@mui/material/Slider";
 import Input from "@mui/material/Input";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import "./App.css";
 import "./Quiz.css";
 
 const INFORMATION = {
@@ -304,7 +303,7 @@ function Quiz() {
   }
 
   return (
-    <>
+    <div className="Quiz">
       <div className="quizContainer">{sections[sectionNumber]}</div>
       <button
         className={checked ? "nextQuestion ready" : "nextQuestion"}
@@ -313,7 +312,7 @@ function Quiz() {
         {" "}
         Next &gt;{" "}
       </button>
-    </>
+    </div>
   );
 }
 

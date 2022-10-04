@@ -5,9 +5,7 @@
   --theme-green: #48695c;
 }
 
-html {
-  font-size: 22px;
-}
+
 
 body {
   margin: 0;
@@ -33,13 +31,15 @@ p {
   color: var(--theme-orange);
 }
 
+
+
 img {
   height: clamp(100px, 30vw, 725px);
 }
 
 .logo {
   align-self: flex-start;
-  height: 2rem;
+  height: 3.5rem;
 }
 
 .heart-img {
@@ -59,12 +59,12 @@ img {
   justify-content: space-between;
   align-items: center;
   /* height: 50vw; */
-  font-size: 1rem;
+  font-size: 2rem;
   color: var(--theme-black);
   margin: 0;
 }
   .container p {
-    font-size: 1rem;
+    font-size: 2rem;
     font-weight: normal;
   }
   .container-hero {
@@ -72,7 +72,7 @@ img {
     margin-top: 0;
   }
     .container-hero h1 {
-      font-size: 3rem;
+      font-size: 6rem;
       line-height: 100%;
       word-spacing: 20000px;
     }
@@ -129,9 +129,7 @@ img {
 } 
 
 @media (min-width: 700px) and (max-width: 1000px) {
-  html {
-    font-size: 35px;
-  }
+
   img {
     display: none;
   }
@@ -145,9 +143,7 @@ img {
 }
 
 @media (min-width: 1000px) {
-  html {
-    font-size: 35px;
-  }
+  
 
   .container { 
     margin: 1rem 2rem;

@@ -10,15 +10,13 @@
   --theme-dark-gray: #8d8d8d;
 }
 
-html {
-  font-size: 30px;
-}
 
 .Slider {
   color: var(--theme-green);
 }
 
-body {
+.Quiz {
+  font-size: 30px;
   margin: 0;
   background-color: var(--theme-light-gray);
   display: flex;
@@ -28,12 +26,13 @@ body {
   min-height: 100vh;
 }
 
-label,
-button {
+.quizContainer label,
+.quizContainer button {
   font-family: "Montserrat", sans-serif;
 }
 
 .quizContainer {
+  font-size: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,11 +50,11 @@ button {
 .quizContainer label {
   display: inline-block;
   background-color: var(--theme-white);
-  padding: 0.5rem 2.4rem;
-  margin: 0.5rem 2rem;
-  font-size: 1rem;
+  padding: 1rem 4.8rem;
+  margin: 1rem 4rem;
+  font-size: 2rem;
   border: none;
-  border-radius: 0.4rem;
+  border-radius: 0.8rem;
   transition: background-color 0.2s ease-out;
 }
 .quizContainer label:hover {
@@ -116,19 +115,21 @@ button {
 
 .extraPrompt {
   background-color: #48695c;
-  border-radius: 1rem;
-  padding: 0.5rem 1rem;
-  font-size: 0.5rem;
+  border-radius: 2rem;
+  padding: 1rem 2rem;
+  font-size: 1rem;
   text-align: left;
   color: #f6f6f6;
 }
 
 .nextQuestion {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1rem;
   position: fixed;
   bottom: 1rem;
   right: 1rem;
 
-  padding: 0.3rem 0.5rem;
+  padding: 0.5rem 0.8rem;
   background-color: var(--theme-white);
   border: none;
   border-radius: 4rem;
@@ -141,14 +142,9 @@ button {
 }
 
 @media screen and (max-width: 950px) {
-  html {
-    font-size: 26px;
-  }
+ 
 }
 @media screen and (max-width: 600px) {
-  html {
-    font-size: 22px;
-  }
 
   .quizContainer {
     padding-bottom: 2rem;
