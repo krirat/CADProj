@@ -1,18 +1,18 @@
 {
   "files": {
-    "main.css": "/CADProj/static/css/main.93643002.css",
-    "main.js": "/CADProj/static/js/main.723b9010.js",
+    "main.css": "/CADProj/static/css/main.21bad64c.css",
+    "main.js": "/CADProj/static/js/main.6a8fa1ad.js",
     "static/media/heart.png": "/CADProj/static/media/heart.73f3a6a74ea8763f666b.png",
-    "static/media/arm.png": "/CADProj/static/media/arm.983a59897c1eece91149.png",
     "static/media/RBC.png": "/CADProj/static/media/RBC.84e69e0df28293049c8d.png",
     "static/media/girl.png": "/CADProj/static/media/girl.fba1a8c4bb6e6e72c732.png",
+    "static/media/arm.png": "/CADProj/static/media/arm.fc9009c5c1d615cca3e0.png",
     "static/media/logo.png": "/CADProj/static/media/logo.e20c51aad142de0f5772.png",
     "index.html": "/CADProj/index.html",
-    "main.93643002.css.map": "/CADProj/static/css/main.93643002.css.map",
-    "main.723b9010.js.map": "/CADProj/static/js/main.723b9010.js.map"
+    "main.21bad64c.css.map": "/CADProj/static/css/main.21bad64c.css.map",
+    "main.6a8fa1ad.js.map": "/CADProj/static/js/main.6a8fa1ad.js.map"
   },
   "entrypoints": [
-    "static/css/main.93643002.css",
-    "static/js/main.723b9010.js"
+    "static/css/main.21bad64c.css",
+    "static/js/main.6a8fa1ad.js"
   ]
 }
