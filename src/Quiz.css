@@ -10,7 +10,6 @@
   --theme-dark-gray: #8d8d8d;
 }
 
-
 .Slider {
   color: var(--theme-green);
 }
@@ -79,9 +78,6 @@
   color: var(--theme-white);
 }
 
-.multipleChoice {
-}
-
 .questionsMenu {
   position: fixed;
   left: 50%;
@@ -96,7 +92,7 @@
   border-radius: 0.4rem;
   background-color: var(--theme-white);
 
-  transform: background-color 0.2s ease-out;
+  transition: 0.15s ease-out;
 }
 
 .questionsMenuButton:hover {
@@ -132,7 +128,7 @@
 }
 
 .nextQuestion {
-  font-family: 'Montserrat', sans-serif;
+  font-family: "Montserrat", sans-serif;
   font-size: 1rem;
   position: fixed;
   bottom: 1rem;
@@ -155,10 +151,8 @@
 }
 
 @media screen and (max-width: 950px) {
- 
 }
 @media screen and (max-width: 600px) {
-
   .quizContainer {
     padding-bottom: 2rem;
   }
