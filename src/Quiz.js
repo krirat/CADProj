@@ -5,14 +5,49 @@ import Input from "@mui/material/Input";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "./Quiz.css";
 
-import Complications from "./Components/Complications";
-import Contact from "./Components/Contact";
+import SectionInformation from "./Components/SectionInformation";
+import SectionMultipleChoice from "./Components/SectionMultipleChoice";
+import SectionResults from "./Components/SectionResults";
 
-const INFORMATION = {
-  male: false,
-  above60: false,
-  bmi: 0,
-};
+const theme = createTheme({
+  components: {
+    MuiSlider: {
+      styleOverrides: {
+        root: {
+          "& .MuiSlider-rail": {
+            color: "#48695c",
+          },
+          "& .MuiSlider-track": {
+            color: "#48695c",
+          },
+          "& .MuiSlider-mark": {
+            backgroundColor: "#48695c",
+          },
+          "& .MuiSlider-thumb": {
+            color: "#48695c",
+          },
+        },
+      },
+    },
+  },
+});
+
+const QUESTIONS_INFORMATION = [
+  {
+    prompt: "Gender",
+    answers: [
+      { answer: "Male", riskPts: 0 },
+      { answer: "Female", riskPts: 0 },
+    ],
+  },
+  {
+    prompt: "Are you above 60 years old?",
+    answers: [
+      { answer: "Yes", riskPts: 5 },
+      { answer: "No", riskPts: 0 },
+    ],
+  },
+];
 
 const QUESTIONS = [
   {
@@ -101,31 +136,6 @@ function Quiz() {
   const [height, setHeight] = react.useState(0);
   const [BMI, setBMI] = react.useState(0);
 
-
-
-  const theme = createTheme({
-    components: {
-      MuiSlider: {
-        styleOverrides: {
-          root: {
-            "& .MuiSlider-rail": {
-              color: "#48695c"
-            },
-            "& .MuiSlider-track": {
-              color: "#48695c"
-            },
-            "& .MuiSlider-mark": {
-              backgroundColor: "#48695c"
-            },
-            "& .MuiSlider-thumb": {
-              color: "#48695c"
-            }
-          },
-        },
-      },
-    },
-  });
-
   //----- HELPER FUNCTIONS --------------------------------
 
   const handleChangeChoice = (e) => {
@@ -141,14 +151,18 @@ function Quiz() {
   const handleNext = () => {
     if (!checked) return;
     if (sectionNumber === 0) {
-      setSectionNumber(1);
+      if (qNum + 1 >= QUESTIONS_INFORMATION.length) {
+        setSectionNumber(1);
+        setQNum(0);
+      }
       setChecked(false);
+      setQNum(qNum + 1);
     } else if (sectionNumber === 1) {
-      if (qNum + 1 >= QUESTIONS.length){
+      if (qNum + 1 >= QUESTIONS.length) {
         setSectionNumber(2);
         setHidden(true);
       } else {
-      setQNum(qNum + 1);
+        setQNum(qNum + 1);
       }
       setRisk(risk + choiceRisk);
       setChecked(false);
@@ -160,97 +174,53 @@ function Quiz() {
     setWeight(Number(e.target.value));
     setChecked(true);
     setBMI(Number(e.target.value) / ((height / 100) ^ 2));
-    console.log(`weight: ${weight}, height: ${height}, BMI: ${BMI}`)
+    console.log(`weight: ${weight}, height: ${height}, BMI: ${BMI}`);
   };
-  
+
   const handleInputChange = (e) => {
     setWeight(Number(e.target.value));
     setChecked(true);
     setBMI(Number(e.target.value) / ((height / 100) ^ 2));
-    console.log(`weight: ${weight}, height: ${height}, BMI: ${BMI}`)
+    console.log(`weight: ${weight}, height: ${height}, BMI: ${BMI}`);
   };
-  
+
   const handleBlur = (e) => {
     if (Number(e.target.value) < 0) {
       setWeight(0);
     } else if (Number(e.target.value) > 300) {
       setWeight(300);
     }
-    console.log(`weight: ${weight}, height: ${height}, BMI: ${BMI}`)
+    console.log(`weight: ${weight}, height: ${height}, BMI: ${BMI}`);
   };
-  
+
   const handleHeightSliderChange = (e) => {
     setHeight(Number(e.target.value));
     setChecked(true);
     setBMI(weight / ((Number(e.target.value) / 100) ^ 2));
-    console.log(`weight: ${weight}, height: ${height}, BMI: ${BMI}`)
+    console.log(`weight: ${weight}, height: ${height}, BMI: ${BMI}`);
   };
-  
+
   const handleHeightInputChange = (e) => {
     setHeight(Number(e.target.value));
     setChecked(true);
     setBMI(weight / ((Number(e.target.value) / 100) ^ 2));
-    console.log(`weight: ${weight}, height: ${height}, BMI: ${BMI}`)
+    console.log(`weight: ${weight}, height: ${height}, BMI: ${BMI}`);
   };
-  
+
   const handleHeightBlur = (e) => {
     if (Number(e.target.value) < 0) {
       setHeight(0);
     } else if (Number(e.target.value) > 300) {
       setHeight(300);
     }
-    console.log(`weight: ${weight}, height: ${height}, BMI: ${BMI}`)
+    console.log(`weight: ${weight}, height: ${height}, BMI: ${BMI}`);
   };
 
-  const generateChoices = () => {
-    let choices = [];
-    let currentQuestion = QUESTIONS[qNum];
-    currentQuestion.answers.forEach((ans, ansIndex) => {
-      let qID = "" + qNum + ansIndex;
-      choices.push(
-        <>
-          <input
-            key={qID}
-            type="radio"
-            id={qID}
-            name={qNum}
-            value={ans.riskPts}
-            defaultChecked={false}
-            onChange={handleChangeChoice}
-          />
-          <label htmlFor={qID}> {ans.answer} </label>
-        </>
-      );
-    });
-    return choices;
-  };
+  //----- COMPONENTS ----------------------------------------
 
-  const generateQuestionsMenu = () => {
-    let items = [];
-    for (var i = 0; i < QUESTIONS.length; i++) {
-      var cls;
-      if (i < qNum) {
-        cls = "questionsMenuButton ready";
-      } else if (i === qNum) {
-        cls = "questionsMenuButton ready chosen";
-      } else if (i > qNum && i <= maxQNum) {
-        cls = "questionsMenuButton ready notChosen";
-      } else {
-        cls = "questionsMenuButton";
-      }
-
-      items.push(
-        <button className={cls} value={i} onClick={handleQuestionsMenuClick} />
-      );
-    }
-    return items;
-  };
-
-  //----- SECTIONS ----------------------------------------
-
-  const informationSection = (
-    <React.Fragment key="iSect">
-      <div>
+  const BmiPage = () => {
+    return (
+      <>
         <p>Height (cm):</p>
         <ThemeProvider theme={theme}>
           <Slider
@@ -258,84 +228,55 @@ function Quiz() {
             onChange={handleHeightSliderChange}
             aria-labelledby="input-slider"
             className="Slider"
+            max="300"
           />
-        <Input
-          value={height}
-          size="small"
-          onChange={handleHeightInputChange}
-          onBlur={handleHeightBlur}
-          inputProps={{
-            step: 10,
-            min: 0,
-            max: 300,
-            type: "number",
-            "aria-labelledby": "input-slider",
-          }}
+          <Input
+            value={height}
+            size="small"
+            onChange={handleHeightInputChange}
+            onBlur={handleHeightBlur}
+            inputProps={{
+              step: 10,
+              min: 0,
+              max: 300,
+              type: "number",
+              "aria-labelledby": "input-slider",
+            }}
           />
-        <p>Weight (kg):</p>
-        <Slider
-          value={typeof weight === "number" ? weight : 0}
-          onChange={handleSliderChange}
-          aria-labelledby="input-slider"
-          className="Slider"
+          <p>Weight (kg):</p>
+          <Slider
+            value={typeof weight === "number" ? weight : 0}
+            onChange={handleSliderChange}
+            aria-labelledby="input-slider"
+            className="Slider"
+            max="300"
           />
-        <Input
-          value={weight}
-          size="small"
-          onChange={handleInputChange}
-          onBlur={handleBlur}
-          inputProps={{
-            step: 10,
-            min: 0,
-            max: 300,
-            type: "number",
-            "aria-labelledby": "input-slider",
-          }}
+          <Input
+            value={weight}
+            size="small"
+            onChange={handleInputChange}
+            onBlur={handleBlur}
+            inputProps={{
+              step: 10,
+              min: 0,
+              max: 300,
+              type: "number",
+              "aria-labelledby": "input-slider",
+            }}
           />
-          </ThemeProvider>
-      </div>
-      <p>BMI = {BMI}</p>
-    </React.Fragment>
-  );
-
-  const multipleChoiceSection = () => {
-    let currentQuestion = QUESTIONS[qNum];
-    let qPrompt = currentQuestion.prompt;
-    let qExtraPrompt = currentQuestion.extraPrompt || null;
-
-    return (
-      <div className="multipleChoice">
-        <div>
-          <p>{qPrompt}</p>
-          {qExtraPrompt}
-          <div>{generateChoices()}</div>
-        </div>
-        <footer className="questionsMenu">{generateQuestionsMenu()}</footer>
-      </div>
+        </ThemeProvider>
+        <p>BMI = {BMI}</p>
+      </>
     );
   };
 
-  const resultsSection = () => {
-    
-    let riskLevel = 0;
-    for (var i in GUIDELINES) {
-      if (risk >= i) {
-        riskLevel = GUIDELINES[i];
-      }
-    };
+  const sections = [
+    <SectionInformation />,
+    <SectionMultipleChoice />,
+    <SectionResults />,
+  ];
 
-    return (
-    <div className="results">
-        <div>
-          <h1 className="resultsText">You have a {riskLevel} risk of having Coronary Artery Disease</h1>
-        </div>
-        <Complications/>
-        <Contact/>
-    </div>
-    );
-  };
-
-  const sections = [informationSection, multipleChoiceSection(), resultsSection()];
+  QUESTIONS_INFORMATION.push(<BmiPage />);
 
   //-------------------------------------------------------
 
@@ -356,10 +297,7 @@ function Quiz() {
   return (
     <div className="Quiz">
       <div className="quizContainer">{sections[sectionNumber]}</div>
-      <button
-        className={btnClass}
-        onClick={handleNext}
-      >
+      <button className={btnClass} onClick={handleNext}>
         {" "}
         Next &gt;{" "}
       </button>
