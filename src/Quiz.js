@@ -1,36 +1,10 @@
 import React from "react";
 import react from "react";
-import Slider from "@mui/material/Slider";
-import Input from "@mui/material/Input";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import "./Quiz.css";
 
-import SectionInformation from "./Components/SectionInformation";
+import SectionBmi from "./Components/SectionBmi";
 import SectionMultipleChoice from "./Components/SectionMultipleChoice";
 import SectionResults from "./Components/SectionResults";
-
-const theme = createTheme({
-  components: {
-    MuiSlider: {
-      styleOverrides: {
-        root: {
-          "& .MuiSlider-rail": {
-            color: "#48695c",
-          },
-          "& .MuiSlider-track": {
-            color: "#48695c",
-          },
-          "& .MuiSlider-mark": {
-            backgroundColor: "#48695c",
-          },
-          "& .MuiSlider-thumb": {
-            color: "#48695c",
-          },
-        },
-      },
-    },
-  },
-});
 
 const QUESTIONS_INFORMATION = [
   {
@@ -136,8 +110,6 @@ function Quiz() {
   const [height, setHeight] = react.useState(0);
   const [BMI, setBMI] = react.useState(0);
 
-  //----- HELPER FUNCTIONS --------------------------------
-
   const handleChangeChoice = (e) => {
     setChecked(true);
     setChoiceRisk(Number(e.target.value));
@@ -148,26 +120,17 @@ function Quiz() {
     if (chosenQNum <= maxQNum) setQNum(chosenQNum);
   };
 
-  const handleNext = () => {
+  const handleNext = (qArray) => {
     if (!checked) return;
-    if (sectionNumber === 0) {
-      if (qNum + 1 >= QUESTIONS_INFORMATION.length) {
-        setSectionNumber(1);
-        setQNum(0);
-      }
-      setChecked(false);
-      setQNum(qNum + 1);
-    } else if (sectionNumber === 1) {
-      if (qNum + 1 >= QUESTIONS.length) {
-        setSectionNumber(2);
-        setHidden(true);
-      } else {
-        setQNum(qNum + 1);
-      }
-      setRisk(risk + choiceRisk);
-      setChecked(false);
+    if (sectionNumber + 1 >= sections.length) setHidden(true);
+    if (qNum + 1 >= qArray.length) {
+      setSectionNumber(sectionNumber + 1);
+      setQNum(0);
     } else {
+      setQNum(qNum + 1);    
     }
+    setRisk(risk + choiceRisk);
+    setChecked(false);
   };
 
   const handleSliderChange = (e) => {
@@ -216,69 +179,36 @@ function Quiz() {
     console.log(`weight: ${weight}, height: ${height}, BMI: ${BMI}`);
   };
 
-  //----- COMPONENTS ----------------------------------------
-
-  const BmiPage = () => {
-    return (
-      <>
-        <p>Height (cm):</p>
-        <ThemeProvider theme={theme}>
-          <Slider
-            value={typeof height === "number" ? height : 0}
-            onChange={handleHeightSliderChange}
-            aria-labelledby="input-slider"
-            className="Slider"
-            max="300"
-          />
-          <Input
-            value={height}
-            size="small"
-            onChange={handleHeightInputChange}
-            onBlur={handleHeightBlur}
-            inputProps={{
-              step: 10,
-              min: 0,
-              max: 300,
-              type: "number",
-              "aria-labelledby": "input-slider",
-            }}
-          />
-          <p>Weight (kg):</p>
-          <Slider
-            value={typeof weight === "number" ? weight : 0}
-            onChange={handleSliderChange}
-            aria-labelledby="input-slider"
-            className="Slider"
-            max="300"
-          />
-          <Input
-            value={weight}
-            size="small"
-            onChange={handleInputChange}
-            onBlur={handleBlur}
-            inputProps={{
-              step: 10,
-              min: 0,
-              max: 300,
-              type: "number",
-              "aria-labelledby": "input-slider",
-            }}
-          />
-        </ThemeProvider>
-        <p>BMI = {BMI}</p>
-      </>
-    );
-  };
-
   const sections = [
-    <SectionInformation />,
-    <SectionMultipleChoice />,
-    <SectionResults />,
+    <SectionMultipleChoice
+      className="information"
+      qNum={qNum}
+      maxQNum={maxQNum}
+      qArray={QUESTIONS_INFORMATION}
+      handleChangeChoice={handleChangeChoice}
+      handleQuestionsMenuClick={handleQuestionsMenuClick}
+    />,
+    <SectionBmi
+      weight={weight}
+      height={height}
+      BMI={BMI}
+      handleHeightSliderChange={handleHeightSliderChange}
+      handleHeightInputChange={handleHeightInputChange}
+      handleHeightBlur={handleHeightBlur}
+      handleSliderChange={handleSliderChange}
+      handleInputChange={handleInputChange}
+      handleBlur={handleBlur}
+    />,
+    <SectionMultipleChoice
+      className="multipleChoice"
+      qNum={qNum}
+      maxQNum={maxQNum}
+      qArray={QUESTIONS}
+      handleChangeChoice={handleChangeChoice}
+      handleQuestionsMenuClick={handleQuestionsMenuClick}
+    />,
+    <SectionResults risk={risk} GUIDELINES={GUIDELINES} />,
   ];
-
-  QUESTIONS_INFORMATION.push(<BmiPage />);
-
-  //-------------------------------------------------------
 
   if (qNum > maxQNum) {
     setMaxQNum(qNum);

@@ -1,9 +1,9 @@
 import ChoiceButton from "./ChoiceButton";
 
 const ChoiceList = (props) => {
-  let currentQuestion = props.question;
+  let question = props.question;
   let choices = [];
-  currentQuestion.answers.forEach((ans, ansIndex) => {
+  question.answers.forEach((ans, ansIndex) => {
     let qID = "" + props.qNum + ansIndex;
     choices.push(
       <ChoiceButton
