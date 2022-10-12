@@ -7,8 +7,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/CADProj" exact element={<Home/>}/>
-        <Route path="/CADProj/quiz" element={<Quiz/>}/>
+        <Route path="/cadproj" exact element={<Home/>}/>
+        <Route path="/cadproj/quiz" element={<Quiz/>}/>
       </Routes>
     </BrowserRouter>
   );

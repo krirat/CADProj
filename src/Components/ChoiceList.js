@@ -4,13 +4,13 @@ const ChoiceList = (props) => {
   let question = props.question;
   let choices = [];
   question.answers.forEach((ans, ansIndex) => {
-    let qID = "" + props.qNum + ansIndex;
+    let qID = "" + props.qIndex + ansIndex;
     choices.push(
       <ChoiceButton
         name={qID}
         risk={ans.riskPts}
         answer={ans.answer}
-        qNum={props.qNum}
+        qIndex={props.qIndex}
         change={props.change}
       />
     );

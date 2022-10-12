@@ -26,22 +26,36 @@ const theme = createTheme({
 });
 
 const SectionBmi = (props) => {
+  let BMILevel;
+  let BMIRisk = 0;
+  for (var i in props.GUIDELINES_BMI) {
+    if (props.BMI >= i) {
+      BMILevel = props.GUIDELINES_BMI[i].level;
+      BMIRisk = props.GUIDELINES_BMI[i].riskPts;
+    }
+  }
+  
+  props.handleBMIRisk(BMIRisk);
+
   return (
     <>
       <p>Height (cm):</p>
       <ThemeProvider theme={theme}>
         <Slider
           value={typeof props.height === "number" ? props.height : 0}
-          onChange={props.handleHeightSliderChange}
+          onChange={props.handleHeightChange}
           aria-labelledby="input-slider"
-          className="Slider"
-          max="300"
-        />
+          className="HeightSlider"
+          min={0}
+          max={300}
+          defaultValue={175}
+          />
         <Input
           value={props.height}
           size="small"
-          onChange={props.handleHeightInputChange}
+          onChange={props.handleHeightChange}
           onBlur={props.handleHeightBlur}
+          className="HeightInput"
           inputProps={{
             step: 10,
             min: 0,
@@ -53,16 +67,19 @@ const SectionBmi = (props) => {
         <p>Weight (kg):</p>
         <Slider
           value={typeof props.weight === "number" ? props.weight : 0}
-          onChange={props.handleSliderChange}
+          onChange={props.handleWeightChange}
           aria-labelledby="input-slider"
-          className="Slider"
-          max="300"
+          className="WeightSlider"
+          min={0}
+          max={300}
+          defaultValue={70}
         />
         <Input
           value={props.weight}
           size="small"
-          onChange={props.handleInputChange}
-          onBlur={props.handleBlur}
+          onChange={props.handleWeightChange}
+          onBlur={props.handleWeightBlur}
+          className="WeightInput"
           inputProps={{
             step: 10,
             min: 0,
@@ -72,7 +89,7 @@ const SectionBmi = (props) => {
           }}
         />
       </ThemeProvider>
-      <p>BMI = {props.BMI}</p>
+      <p>BMI = {props.BMI} <br/> ({BMILevel})</p>
     </>
   );
 };

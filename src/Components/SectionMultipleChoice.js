@@ -3,14 +3,15 @@ import ChoiceList from "./ChoiceList";
 
 const SectionMultipleChoice = (props) => {
   let qArray = props.qArray;
-  let qNum = props.qNum;
-  let maxQNum = props.maxQNum;
-  let question = qArray[qNum];
+  let qIndex = props.qIndex;
+  let maxQIndex = props.maxQIndex;
+  let question = qArray[qIndex];
   let qPrompt = question.prompt;
   let qExtraPrompt = question.extraPrompt || null;
 
   let handleChangeChoice = props.handleChangeChoice;
   let handleQuestionsMenuClick = props.handleQuestionsMenuClick;
+
 
   return (
     <div className={props.className}>
@@ -19,15 +20,15 @@ const SectionMultipleChoice = (props) => {
         {qExtraPrompt}
         <ChoiceList
           question={question}
-          qNum={qNum}
+          qIndex={qIndex}
           change={handleChangeChoice}
         />
       </div>
       <footer className="questionsMenu">
         <QuestionsMenu
           qArray={qArray}
-          qNum={qNum}
-          maxQNum={maxQNum}
+          qIndex={qIndex}
+          maxQIndex={maxQIndex}
           handleQuestionsMenuClick={handleQuestionsMenuClick}
         />
       </footer>

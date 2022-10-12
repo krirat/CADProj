@@ -5,7 +5,7 @@ const ChoiceButton = (props) => {
         key={props.name}
         type="radio"
         id={props.name}
-        name={props.qNum}
+        name={props.qIndex}
         value={props.risk}
         defaultChecked={false}
         onChange={props.change}

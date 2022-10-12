@@ -52,6 +52,13 @@ const QUESTIONS = [
     ],
   },
   {
+    prompt: "Do you often feel your heart rapidly pumping, shaking, or aching while doing physical activities?",
+    answers: [
+      { answer: "Yes", riskPts: 5 },
+      { answer: "No", riskPts: 0 },
+    ]
+  },
+  {
     prompt: "Do you often experience stress?",
     answers: [
       { answer: "Yes", riskPts: 5 },
@@ -92,20 +99,26 @@ const QUESTIONS = [
 ];
 
 const GUIDELINES = {
-  35: "high",
-  25: "medium",
+  30: "high",
+  15: "medium",
   0: "low",
 };
 
+const GUIDELINES_BMI = {
+  30: {level:"Obese", riskPts: 5},
+  25: {level: "Overweight", riskPts: 2},
+  18: {level: "Healthy", riskPts: 0},
+  0: {level: "Underweight", riskPts: 0}
+}
+
 function Quiz() {
-  const [qNum, setQNum] = react.useState(0);
-  const [maxQNum, setMaxQNum] = react.useState(0);
+  const [qIndex, setQIndex] = react.useState(0);
+  const [maxQIndex, setMaxQIndex] = react.useState(0);
   const [risk, setRisk] = react.useState(0);
   const [choiceRisk, setChoiceRisk] = react.useState(0);
   const [checked, setChecked] = react.useState(false);
   const [hidden, setHidden] = react.useState(false);
-  const [sectionNumber, setSectionNumber] = react.useState(0);
-
+  const [sectionIndex, setSectionIndex] = react.useState(0);
   const [weight, setWeight] = react.useState(0);
   const [height, setHeight] = react.useState(0);
   const [BMI, setBMI] = react.useState(0);
@@ -116,58 +129,53 @@ function Quiz() {
   };
 
   const handleQuestionsMenuClick = (e) => {
-    let chosenQNum = Number(e.target.value);
-    if (chosenQNum <= maxQNum) setQNum(chosenQNum);
+    let chosenQIndex = Number(e.target.value);
+    if (chosenQIndex <= maxQIndex) setQIndex(chosenQIndex);
   };
 
-  const handleNext = (qArray) => {
+  const handleNext = () => {
     if (!checked) return;
-    if (sectionNumber + 1 >= sections.length) setHidden(true);
-    if (qNum + 1 >= qArray.length) {
-      setSectionNumber(sectionNumber + 1);
-      setQNum(0);
+
+    let currentSectionArray = sections[sectionIndex].props.qArray;
+    let sectionIsComplete = !currentSectionArray || qIndex + 1 >= currentSectionArray.length;
+
+    if (sectionIsComplete) {
+      setSectionIndex(sectionIndex + 1);
+      setQIndex(0);
+      setMaxQIndex(0);
     } else {
-      setQNum(qNum + 1);    
+      setQIndex(qIndex + 1);
     }
+
     setRisk(risk + choiceRisk);
     setChecked(false);
   };
 
-  const handleSliderChange = (e) => {
+  const calculateBMI = () => {
+    return Number((weight / ((height / 100) ** 2)).toFixed(1));
+  }
+
+  const handleWeightChange = (e) => {
     setWeight(Number(e.target.value));
     setChecked(true);
-    setBMI(Number(e.target.value) / ((height / 100) ^ 2));
-    console.log(`weight: ${weight}, height: ${height}, BMI: ${BMI}`);
+    setBMI(calculateBMI);
   };
 
-  const handleInputChange = (e) => {
-    setWeight(Number(e.target.value));
-    setChecked(true);
-    setBMI(Number(e.target.value) / ((height / 100) ^ 2));
-    console.log(`weight: ${weight}, height: ${height}, BMI: ${BMI}`);
-  };
-
-  const handleBlur = (e) => {
+  const handleWeightBlur = (e) => {
     if (Number(e.target.value) < 0) {
       setWeight(0);
     } else if (Number(e.target.value) > 300) {
       setWeight(300);
     }
-    console.log(`weight: ${weight}, height: ${height}, BMI: ${BMI}`);
+
+    setBMI(calculateBMI);
   };
 
-  const handleHeightSliderChange = (e) => {
-    setHeight(Number(e.target.value));
-    setChecked(true);
-    setBMI(weight / ((Number(e.target.value) / 100) ^ 2));
-    console.log(`weight: ${weight}, height: ${height}, BMI: ${BMI}`);
-  };
 
-  const handleHeightInputChange = (e) => {
+  const handleHeightChange = (e) => {
     setHeight(Number(e.target.value));
     setChecked(true);
-    setBMI(weight / ((Number(e.target.value) / 100) ^ 2));
-    console.log(`weight: ${weight}, height: ${height}, BMI: ${BMI}`);
+    setBMI(calculateBMI);
   };
 
   const handleHeightBlur = (e) => {
@@ -176,14 +184,18 @@ function Quiz() {
     } else if (Number(e.target.value) > 300) {
       setHeight(300);
     }
-    console.log(`weight: ${weight}, height: ${height}, BMI: ${BMI}`);
+    setBMI(calculateBMI);
   };
+
+  const handleBMIRisk = (riskPts) => {
+    setChoiceRisk(riskPts)
+  }
 
   const sections = [
     <SectionMultipleChoice
       className="information"
-      qNum={qNum}
-      maxQNum={maxQNum}
+      qIndex={qIndex}
+      maxQIndex={maxQIndex}
       qArray={QUESTIONS_INFORMATION}
       handleChangeChoice={handleChangeChoice}
       handleQuestionsMenuClick={handleQuestionsMenuClick}
@@ -192,17 +204,17 @@ function Quiz() {
       weight={weight}
       height={height}
       BMI={BMI}
-      handleHeightSliderChange={handleHeightSliderChange}
-      handleHeightInputChange={handleHeightInputChange}
+      GUIDELINES_BMI={GUIDELINES_BMI}
+      handleHeightChange={handleHeightChange}
       handleHeightBlur={handleHeightBlur}
-      handleSliderChange={handleSliderChange}
-      handleInputChange={handleInputChange}
-      handleBlur={handleBlur}
+      handleWeightChange={handleWeightChange}
+      handleWeightBlur={handleWeightBlur}
+      handleBMIRisk={handleBMIRisk}
     />,
     <SectionMultipleChoice
       className="multipleChoice"
-      qNum={qNum}
-      maxQNum={maxQNum}
+      qIndex={qIndex}
+      maxQIndex={maxQIndex}
       qArray={QUESTIONS}
       handleChangeChoice={handleChangeChoice}
       handleQuestionsMenuClick={handleQuestionsMenuClick}
@@ -210,8 +222,8 @@ function Quiz() {
     <SectionResults risk={risk} GUIDELINES={GUIDELINES} />,
   ];
 
-  if (qNum > maxQNum) {
-    setMaxQNum(qNum);
+  if (qIndex > maxQIndex) {
+    setMaxQIndex(qIndex);
   }
 
   var btnClass;
@@ -224,9 +236,11 @@ function Quiz() {
     btnClass = "nextQuestion";
   }
 
+  if (sectionIndex + 1 >= sections.length && !hidden) setHidden(true);
+
   return (
     <div className="Quiz">
-      <div className="quizContainer">{sections[sectionNumber]}</div>
+      <div className="quizContainer">{sections[sectionIndex]}</div>
       <button className={btnClass} onClick={handleNext}>
         {" "}
         Next &gt;{" "}

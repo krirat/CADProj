@@ -1,16 +1,16 @@
 const QuestionsMenu = (props) => {
-  let qNum = props.qNum;
-  let maxQNum = props.maxQNum;
+  let qIndex = props.qIndex;
+  let maxQIndex = props.maxQIndex;
   let questions = props.qArray;
   let handleClick = props.handleQuestionsMenuClick;
   let items = [];
   for (var i = 0; i < questions.length; i++) {
     var cls;
-    if (i < qNum) {
+    if (i < qIndex) {
       cls = "questionsMenuButton ready";
-    } else if (i === qNum) {
+    } else if (i === qIndex) {
       cls = "questionsMenuButton ready chosen";
-    } else if (i > qNum && i <= maxQNum) {
+    } else if (i > qIndex && i <= maxQIndex) {
       cls = "questionsMenuButton ready notChosen";
     } else {
       cls = "questionsMenuButton";
