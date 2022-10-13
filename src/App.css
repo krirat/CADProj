@@ -24,6 +24,10 @@ p {
   font-weight: 600;
 }
 
+.Home {
+  padding: 0;
+}
+
 .highlight-orange {
   font-weight: 400 !important;
   color: var(--theme-orange);
@@ -39,43 +43,49 @@ img {
 }
 
 .heart-img {
-  height: 100%;
+  height: 40rem;
   object-fit: contain;
   align-self: flex-start;
-  /* mask-image: url('./pics/shardmask.svg');
+  mask-image: url("./pics/shardmask.svg");
   mask-repeat: no-repeat;
-  mask-size: 100%; */
+  mask-size: 100% 100%;
 }
-/* .arm-img {
-   border-top-left-radius: 70%; 
-} */
 
 .container {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* height: 50vw; */
   font-size: 2rem;
   color: var(--theme-black);
   margin: 0;
 }
+
 .container p {
   font-size: 2rem;
   font-weight: normal;
 }
+
 .container-hero {
   margin-right: 0;
   margin-top: 0;
 }
+
+.container-vert-hero {
+  margin-right: 0;
+  margin-top: 0;
+}
+
 .container-hero h1 {
   font-size: 6rem;
   line-height: 100%;
   word-spacing: 20000px;
 }
+
 .container-hero p {
   font-size: 1.5rem;
   font-weight: 600;
 }
+
 .container-hero .container-vert {
   margin: 1rem;
 }
@@ -88,6 +98,7 @@ img {
   font-size: 1.5rem;
   line-height: 2rem;
 }
+
 .container-complications h1 {
   margin-bottom: 0;
 }
@@ -97,19 +108,17 @@ img {
   align-items: flex-start;
   justify-content: space-between;
   margin: 0;
-  /* height: 75%; */
 }
+
 .highlight-orange {
   margin-bottom: 0;
-}
-.add-right-margin {
-  margin-right: 5rem;
 }
 
 @media only screen and (max-width: 700px) {
   img {
     display: none;
   }
+
   .Home {
     margin: 1rem;
   }
@@ -117,25 +126,32 @@ img {
   .logo {
     display: block;
   }
+
   .container h1 {
     font-size: 2.5rem;
   }
+
   .container p {
     font-size: 1.5rem;
   }
+
   .container-vert {
     margin: 1.1rem 0.5rem;
   }
+
   .container-hero h1 {
     font-size: 4rem;
   }
+
   .container-hero p {
     font-size: 1.5rem;
   }
+
   .container-complications li {
     font-size: 1.5rem;
     line-height: 2.5rem;
   }
+
   .highlight-orange {
     margin-bottom: 0;
   }
@@ -145,6 +161,7 @@ img {
   img {
     display: none;
   }
+
   .Home {
     margin: 2rem;
   }
@@ -152,15 +169,19 @@ img {
   .logo {
     display: block;
   }
+
   .container-vert {
     margin: 1.3rem 0.5rem;
   }
+
   .container-contact h1 {
     font-size: 2.5rem;
   }
+
   .container-contact p {
     font-size: 1.5rem;
   }
+
   .container-complications li {
     font-size: 2.2rem;
     line-height: 4rem;
@@ -172,15 +193,23 @@ img {
   .container {
     margin: 1rem 2rem;
   }
+  .container-hero {
+    margin-right: 0;
+    margin-top: 0;
+  }
+
   .container-about {
     margin-top: 2.5rem;
   }
+
   .container-complications {
     margin: 3.5rem 4rem;
   }
+
   .container-contact {
     margin-top: 6rem;
   }
+
   .container-contact h1 {
     margin: 0;
     font-size: 2.5rem;
