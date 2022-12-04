@@ -18,7 +18,12 @@ function Home() {
                 <h1>Coronary Artery Disease</h1>
                 <p>Analyze your risk of getting a heart disease now!</p>
               </div>
+              <div style={{position:'relative'}}>
               <img className='heart-img' src={heart} alt='heart'/>
+              <div className='circle green' style={{position:'absolute',bottom:'50px',left:'-25px'}}></div>
+              <div className='semicircle orange' style={{position:'absolute',top:'150px',left:'-25px'}}></div>
+
+              </div>
         </div>
       </section>
       <section className='about-cad'>
@@ -34,7 +39,12 @@ function Home() {
             </p>
             <Button type='small' text='TAKE THE TEST' to="/CADProj/quiz"/>
           </div>
-          <img className='girl-img' src={girl} alt='girl'/>
+          <div style={{position:'relative'}}>
+            <img className='girl-img' src={girl} alt='girl'/>
+            <div className='circle green' style={{position:'absolute',bottom:'50px',left:'130px'}}></div>
+            <div className='semicircle orange' style={{position:'absolute',bottom:'-90px',right:'10px'}}></div>
+
+          </div>
         </div>
       </section>
       <Complications/>

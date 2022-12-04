@@ -29,13 +29,32 @@ p {
   color: var(--theme-orange);
 }
 
-img {
-  height: clamp(100px, 30vw, 725px);
-}
 
 .logo {
   align-self: flex-start;
   height: 3.5rem;
+}
+
+.circle {
+  height:50px;
+  width:50px;
+  border-radius: 1000px;
+}
+
+.semicircle {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  height: 200px;
+  width: 100px;
+  border-radius: 0 150px 150px 0;
+}
+
+.orange {
+  background-color: var(--theme-orange);
+}
+
+.green {
+  background-color:var(--theme-green);
 }
 
 .heart-img {
@@ -49,6 +68,14 @@ img {
 /* .arm-img {
    border-top-left-radius: 70%; 
 } */
+
+.girl-img {
+  margin: 0 6rem;
+}
+
+.rbc {
+  margin: 0 6rem;
+}
 
 .container {
   display: flex;
@@ -110,12 +137,21 @@ img {
   img {
     display: none;
   }
+  .circle {
+    display: none;
+  }
+  .semicircle {
+    display: none;
+  }
   .Home {
     margin: 1rem;
   }
 
   .logo {
     display: block;
+  }
+  .container {
+   justify-content: flex-start;
   }
   .container h1 {
     font-size: 2.5rem;
@@ -145,6 +181,12 @@ img {
   img {
     display: none;
   }
+  .circle {
+    display: none;
+  }
+  .semicircle {
+    display: none;
+  }
   .Home {
     margin: 2rem;
   }
@@ -152,6 +194,9 @@ img {
   .logo {
     display: block;
   }
+  .container {
+    justify-content: flex-start;
+   }
   .container-vert {
     margin: 1.3rem 0.5rem;
   }
@@ -171,6 +216,10 @@ img {
 @media (min-width: 1000px) {
   .container {
     margin: 1rem 2rem;
+  }
+  .container-hero {
+    margin-right: 0;
+    margin-top: 0;
   }
   .container-about {
     margin-top: 2.5rem;
