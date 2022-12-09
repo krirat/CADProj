@@ -6,9 +6,9 @@ function Complications() {
     return (
         <section className='complications'>
         <div className='container container-complications'>
-          <div style={{position:'relative'}}>
+          <div style={{position:'relative', zIndex:'1'}}>
             <img className='rbc' src={rbc} alt='red blood cells'/>
-            <div className='circle green' style={{position:'absolute',bottom:'30px',right:'100px',width:'90px',height:'90px'}}></div>
+            <div className='circle green' style={{position:'absolute',bottom:'30px',right:'100px',width:'90px',height:'90px',}}></div>
             <div className='circle orange' style={{position:'absolute',top:'-30px',left:'-0px',width:'300px',height:'300px',zIndex:'-1'}}></div>
           </div>
           <div className='container container-vert'>

@@ -42,8 +42,11 @@
 
 .results {
   background-color: var(--theme-white);
-  padding: 3rem 1rem;
+  padding: 0;
   text-align: left;
+  margin: 0;
+  width: 100vw;
+  height: 100vh;
 }
 .resultsText {
   text-align: center;

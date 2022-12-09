@@ -110,7 +110,9 @@ p {
 .container-about {
   margin-top: 2rem;
 }
-
+.container-complications{
+  justify-content: space-around;
+}
 .container-complications li {
   font-size: 1.5rem;
   line-height: 2rem;
@@ -146,7 +148,6 @@ p {
   .Home {
     margin: 1rem;
   }
-
   .logo {
     display: block;
   }
@@ -181,6 +182,7 @@ p {
   img {
     display: none;
   }
+  
   .circle {
     display: none;
   }
@@ -196,7 +198,7 @@ p {
   }
   .container {
     justify-content: flex-start;
-   }
+  }
   .container-vert {
     margin: 1.3rem 0.5rem;
   }
@@ -213,7 +215,56 @@ p {
   }
 }
 
-@media (min-width: 1000px) {
+@media (min-width: 1000px) and (max-width: 1200px) {
+  .girl-img {
+    margin: 0 1rem;
+    padding: 0;
+  }
+  .hero .semicircle{
+    display: none;
+  }
+  .container-about .circle {
+    bottom: 50px !important;
+    left: 49px !important;
+  }
+  .container-about .semicircle {
+    bottom: -90px !important;
+    right: -60px !important;
+  }
+  .container-complications .circle.orange {
+    top:-40px !important;
+    left:0px !important;
+  }
+  .container-complications .circle.green {
+    bottom:10px !important;
+    right:30px !important;
+  }
+  .rbc {
+    margin: 0 2rem;
+  }
+  .container {
+    margin: 1rem 2rem;
+  }
+  .container-hero {
+    margin-right: 0;
+    margin-top: 0;
+  }
+  .container-about {
+    margin-top: 2.5rem;
+  }
+  .container-complications {
+    margin: 3.5rem 4rem;
+  }
+  .container-contact {
+    margin-top: 6rem;
+  }
+  .container-contact h1 {
+    margin: 0;
+    font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
   .container {
     margin: 1rem 2rem;
   }

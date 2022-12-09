@@ -10,7 +10,7 @@ const Button = styled(MUIButton)(() => ({
   padding: "0.8rem 2.5rem",
   margin: "2rem 0 4rem 0",
   fontSize: "1.5rem",
-  borderRadius: "3rem",
+  borderRadius: "1rem",
   "&:hover": {
     backgroundColor: "#3B574C",
   },
