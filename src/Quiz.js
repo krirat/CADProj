@@ -105,10 +105,10 @@ const GUIDELINES = {
 };
 
 const GUIDELINES_BMI = {
-  30: {level:"Obese", riskPts: 5},
-  25: {level: "Overweight", riskPts: 2},
-  18: {level: "Healthy", riskPts: 0},
-  0: {level: "Underweight", riskPts: 0}
+  30: { level: "Obese", riskPts: 5 },
+  25: { level: "Overweight", riskPts: 2 },
+  18: { level: "Healthy", riskPts: 0 },
+  0: { level: "Underweight", riskPts: 0 }
 }
 
 function Quiz() {
@@ -116,15 +116,15 @@ function Quiz() {
   const [maxQIndex, setMaxQIndex] = react.useState(0);
   const [risk, setRisk] = react.useState(0);
   const [choiceRisk, setChoiceRisk] = react.useState(0);
-  const [checked, setChecked] = react.useState(false);
-  const [hidden, setHidden] = react.useState(false);
+  const [hasMadeChoice, setHasMadeChoice] = react.useState(false);
+  const [nextQuestionButtonHidden, setNextQuestionButtonHidden] = react.useState(false);
   const [sectionIndex, setSectionIndex] = react.useState(0);
   const [weight, setWeight] = react.useState(0);
   const [height, setHeight] = react.useState(0);
   const [BMI, setBMI] = react.useState(0);
 
   const handleChangeChoice = (e) => {
-    setChecked(true);
+    setHasMadeChoice(true);
     setChoiceRisk(Number(e.target.value));
   };
 
@@ -133,8 +133,8 @@ function Quiz() {
     if (chosenQIndex <= maxQIndex) setQIndex(chosenQIndex);
   };
 
-  const handleNext = () => {
-    if (!checked) return;
+  const handleNextQuestionButtonClicked = () => {
+    if (!hasMadeChoice) return;
 
     let currentSectionArray = sections[sectionIndex].props.qArray;
     let sectionIsComplete = !currentSectionArray || qIndex + 1 >= currentSectionArray.length;
@@ -148,7 +148,7 @@ function Quiz() {
     }
 
     setRisk(risk + choiceRisk);
-    setChecked(false);
+    setHasMadeChoice(false);
   };
 
   const calculateBMI = () => {
@@ -157,7 +157,7 @@ function Quiz() {
 
   const handleWeightChange = (e) => {
     setWeight(Number(e.target.value));
-    setChecked(true);
+    setHasMadeChoice(true);
     setBMI(calculateBMI);
   };
 
@@ -174,7 +174,7 @@ function Quiz() {
 
   const handleHeightChange = (e) => {
     setHeight(Number(e.target.value));
-    setChecked(true);
+    setHasMadeChoice(true);
     setBMI(calculateBMI);
   };
 
@@ -226,22 +226,23 @@ function Quiz() {
     setMaxQIndex(qIndex);
   }
 
-  var btnClass;
+  var nextQuestionButtonClass;
 
-  if (hidden) {
-    btnClass = "nextQuestion hidden";
-  } else if (checked) {
-    btnClass = "nextQuestion ready";
+  if (nextQuestionButtonHidden) {
+    nextQuestionButtonClass = "nextQuestion hidden";
+  } else if (hasMadeChoice) {
+    nextQuestionButtonClass = "nextQuestion ready";
   } else {
-    btnClass = "nextQuestion";
+    nextQuestionButtonClass = "nextQuestion";
   }
 
-  if (sectionIndex + 1 >= sections.length && !hidden) setHidden(true);
+  var quizIsComplete = sectionIndex + 1 >= sections.length && !nextQuestionButtonHidden;
+  if (quizIsComplete) setNextQuestionButtonHidden(true);
 
   return (
     <div className="Quiz">
       <div className="quizContainer">{sections[sectionIndex]}</div>
-      <button className={btnClass} onClick={handleNext}>
+      <button className={nextQuestionButtonClass} onClick={handleNextQuestionButtonClicked}>
         {" "}
         Next &gt;{" "}
       </button>

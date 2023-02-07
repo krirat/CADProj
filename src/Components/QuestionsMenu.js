@@ -3,22 +3,27 @@ const QuestionsMenu = (props) => {
   let maxQIndex = props.maxQIndex;
   let questions = props.qArray;
   let handleClick = props.handleQuestionsMenuClick;
-  let items = [];
-  for (var i = 0; i < questions.length; i++) {
-    var cls;
-    if (i < qIndex) {
-      cls = "questionsMenuButton ready";
-    } else if (i === qIndex) {
-      cls = "questionsMenuButton ready chosen";
-    } else if (i > qIndex && i <= maxQIndex) {
-      cls = "questionsMenuButton ready notChosen";
-    } else {
-      cls = "questionsMenuButton";
+  let questionButtons = [];
+
+  for (var buttonIndex = 0; buttonIndex < questions.length; buttonIndex++) {
+    var _className;
+    const buttonIndexBeforeCurrentQuestion = buttonIndex < qIndex;
+    const buttonIndexOnCurrentQuestion = buttonIndex === qIndex;
+    const buttonIndexPastCurrentQuestion = buttonIndex > qIndex && buttonIndex <= maxQIndex;
+
+    if (buttonIndexBeforeCurrentQuestion) {
+      _className = "questionsMenuButton ready";
+    } else if (buttonIndexOnCurrentQuestion) {
+      _className = "questionsMenuButton ready chosen";
+    } else if (buttonIndexPastCurrentQuestion) {
+      _className = "questionsMenuButton ready notChosen";
+    } else { //if the button is assigned to a question that has not been reached
+      _className = "questionsMenuButton";
     }
 
-    items.push(<button className={cls} value={i} onClick={handleClick} />);
+    questionButtons.push(<button className={_className} value={buttonIndex} onClick={handleClick} />);
   }
-  return items;
+  return questionButtons;
 };
 
 export default QuestionsMenu;
