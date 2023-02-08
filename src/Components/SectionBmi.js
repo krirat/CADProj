@@ -1,3 +1,4 @@
+import React from "react";
 import Slider from "@mui/material/Slider";
 import Input from "@mui/material/Input";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
@@ -34,7 +35,7 @@ const SectionBmi = (props) => {
       BMIRisk = props.GUIDELINES_BMI[i].riskPts;
     }
   }
-  
+
   props.handleBMIRisk(BMIRisk);
 
   return (
@@ -49,7 +50,7 @@ const SectionBmi = (props) => {
           min={0}
           max={300}
           defaultValue={175}
-          />
+        />
         <Input
           value={props.height}
           size="small"
@@ -89,7 +90,7 @@ const SectionBmi = (props) => {
           }}
         />
       </ThemeProvider>
-      <p>BMI = {props.BMI} <br/> ({BMILevel})</p>
+      <p>BMI = {props.BMI} <br /> ({BMILevel})</p>
     </>
   );
 };

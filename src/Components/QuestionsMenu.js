@@ -1,3 +1,5 @@
+import React from "react";
+
 const QuestionsMenu = (props) => {
   let qIndex = props.qIndex;
   let maxQIndex = props.maxQIndex;

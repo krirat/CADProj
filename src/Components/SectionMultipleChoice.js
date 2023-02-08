@@ -1,5 +1,6 @@
 import QuestionsMenu from "./QuestionsMenu";
 import ChoiceList from "./ChoiceList";
+import React from "react";
 
 const SectionMultipleChoice = (props) => {
   let qArray = props.qArray;
