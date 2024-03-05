@@ -123,6 +123,10 @@ function Quiz() {
   const [height, setHeight] = react.useState(0);
   const [BMI, setBMI] = react.useState(0);
 
+  //------------------------------------------------------------
+  //MULTIPLE CHOICE SECTION: EVENT HANDLERS & HELPER FUNCTIONS
+  //------------------------------------------------------------
+
   const handleChangeChoice = (e) => {
     setHasMadeChoice(true);
     setChoiceRisk(Number(e.target.value));
@@ -133,26 +137,42 @@ function Quiz() {
     if (chosenQIndex <= maxQIndex) setQIndex(chosenQIndex);
   };
 
+  const nextSection = () => {
+    setSectionIndex(sectionIndex + 1);
+    setQIndex(0);
+    setMaxQIndex(0);
+  }
+
+  const nextQuestion = () => {
+    setQIndex(qIndex + 1);
+  }
+
   const handleNextQuestionButtonClicked = () => {
     if (!hasMadeChoice) return;
 
-    let currentSectionArray = sections[sectionIndex].props.qArray;
-    let sectionIsComplete = !currentSectionArray || qIndex + 1 >= currentSectionArray.length;
+    let currentSectionQArray = sections[sectionIndex].props.qArray;
+    let sectionIsComplete = currentSectionQArray == null || qIndex + 1 >= currentSectionQArray.length;
 
     if (sectionIsComplete) {
-      setSectionIndex(sectionIndex + 1);
-      setQIndex(0);
-      setMaxQIndex(0);
+      nextSection();
     } else {
-      setQIndex(qIndex + 1);
+      nextQuestion();
     }
 
     setRisk(risk + choiceRisk);
     setHasMadeChoice(false);
   };
 
+  //------------------------------------------------------------
+  //BMI SECTION: EVENT HANDLERS & HELPER FUNCTIONS
+  //------------------------------------------------------------
+
   const calculateBMI = () => {
     return Number((weight / ((height / 100) ** 2)).toFixed(1));
+  }
+
+  const handleBMIRisk = (riskPts) => {
+    setChoiceRisk(riskPts)
   }
 
   const handleWeightChange = (e) => {
@@ -187,9 +207,9 @@ function Quiz() {
     setBMI(calculateBMI);
   };
 
-  const handleBMIRisk = (riskPts) => {
-    setChoiceRisk(riskPts)
-  }
+  //------------------------------------------------------------
+  //RENDERING SECTIONS
+  //------------------------------------------------------------
 
   const sections = [
     <SectionMultipleChoice
@@ -219,14 +239,20 @@ function Quiz() {
       handleChangeChoice={handleChangeChoice}
       handleQuestionsMenuClick={handleQuestionsMenuClick}
     />,
-    <SectionResults risk={risk} GUIDELINES={GUIDELINES} />,
+    <SectionResults
+      risk={risk}
+      GUIDELINES={GUIDELINES}
+    />,
   ];
+
+  var nextQuestionButtonClass;
+  var quizIsComplete = sectionIndex + 1 >= sections.length && !nextQuestionButtonHidden;
 
   if (qIndex > maxQIndex) {
     setMaxQIndex(qIndex);
   }
 
-  var nextQuestionButtonClass;
+  if (quizIsComplete) setNextQuestionButtonHidden(true);
 
   if (nextQuestionButtonHidden) {
     nextQuestionButtonClass = "nextQuestion hidden";
@@ -236,15 +262,11 @@ function Quiz() {
     nextQuestionButtonClass = "nextQuestion";
   }
 
-  var quizIsComplete = sectionIndex + 1 >= sections.length && !nextQuestionButtonHidden;
-  if (quizIsComplete) setNextQuestionButtonHidden(true);
-
   return (
     <div className="Quiz">
       <div className="quizContainer">{sections[sectionIndex]}</div>
       <button className={nextQuestionButtonClass} onClick={handleNextQuestionButtonClicked}>
-        {" "}
-        Next &gt;{" "}
+        {" "}Next &gt;{" "}
       </button>
     </div>
   );
