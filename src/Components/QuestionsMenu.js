@@ -7,7 +7,7 @@ const QuestionsMenu = (props) => {
   let handleClick = props.handleQuestionsMenuClick;
   let questionButtons = [];
 
-  for (var buttonIndex = 0; buttonIndex < questions.length; buttonIndex++) {
+  for (var buttonIndex = 0; buttonIndex < questions.length; buttonIndex++) { //sets color for each button
     var _className;
     const buttonIndexBeforeCurrentQuestion = buttonIndex < qIndex;
     const buttonIndexOnCurrentQuestion = buttonIndex === qIndex;
